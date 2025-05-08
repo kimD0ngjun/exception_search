@@ -1,3 +1,5 @@
+package org.jun.config;
+
 import org.springframework.stereotype.Component;
 
 @Component
