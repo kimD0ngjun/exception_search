@@ -19,6 +19,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-autoconfigure:3.4.5'
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+}
+
 test {
     useJUnitPlatform()
 }
