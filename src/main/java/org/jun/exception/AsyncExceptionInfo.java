@@ -1,10 +1,10 @@
 package org.jun.exception;
 
-public class AsyncException extends ContextException {
+public class AsyncExceptionInfo extends ContextExceptionInfo {
 
     private final String threadName;
 
-    public AsyncException(Throwable ex, String threadName) {
+    public AsyncExceptionInfo(Throwable ex, String threadName) {
         super(Type.ASYNC_EXCEPTION, ex);
         this.threadName = threadName;
     }

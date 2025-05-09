@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
-public class ContextException {
+public class ContextExceptionInfo {
 
     protected String type;
     protected String exceptionName;
@@ -15,7 +15,7 @@ public class ContextException {
     protected String originModule;
     protected List<String> stackTrace;
 
-    public ContextException(String type, Throwable ex) {
+    public ContextExceptionInfo(String type, Throwable ex) {
         this.type = type;
         this.exceptionName = ex.getClass().getName();
         this.message = ex.getMessage();
