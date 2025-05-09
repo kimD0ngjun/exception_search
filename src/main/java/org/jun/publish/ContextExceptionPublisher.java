@@ -22,7 +22,8 @@ public class ContextExceptionPublisher {
     // 컨텍스트 범위 전역 예외 처리
     @ExceptionHandler(Exception.class)
     public void handle(Exception e, HttpServletRequest request) {
-        ContextExceptionInfo info = new ContextExceptionInfo(Type.CONTEXT_EXCEPTION, e, request.getRequestURI());
+        ContextExceptionInfo info =
+                new ContextExceptionInfo(Type.CONTEXT_EXCEPTION, e, request.getRequestURI());
         publisher.publishEvent(info);
     }
 }

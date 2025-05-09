@@ -36,7 +36,7 @@ public class FilterServletExceptionPublisher implements Filter {
 
             FilterServletExceptionInfo info =
                     new FilterServletExceptionInfo(e, requestUri, wrappedResponse.getStatusCode());
-            publisher.publishEvent(e);
+            publisher.publishEvent(info);
             throw e;
         }
     }
