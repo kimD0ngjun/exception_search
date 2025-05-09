@@ -2,7 +2,9 @@ package org.jun.publish;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jun.exception.FilterServletExceptionInfo;
+import org.jun.wrapper.StatusCaptureResponseWrapper;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.io.IOException;
@@ -23,6 +25,9 @@ public class FilterServletExceptionPublisher implements Filter {
             ServletRequest servletRequest,
             ServletResponse servletResponse,
             FilterChain filterChain) throws IOException, ServletException {
+        StatusCaptureResponseWrapper wrappedResponse =
+                new StatusCaptureResponseWrapper((HttpServletResponse) servletResponse);
+
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
@@ -30,7 +35,7 @@ public class FilterServletExceptionPublisher implements Filter {
             String requestUri = httpRequest.getRequestURI();
 
             FilterServletExceptionInfo info =
-                    new FilterServletExceptionInfo(e, requestUri, 200);
+                    new FilterServletExceptionInfo(e, requestUri, wrappedResponse.getStatusCode());
             publisher.publishEvent(e);
             throw e;
         }
