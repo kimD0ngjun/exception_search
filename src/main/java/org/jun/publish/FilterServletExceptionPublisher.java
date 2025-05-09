@@ -5,6 +5,9 @@ import org.springframework.context.ApplicationEventPublisher;
 
 import java.io.IOException;
 
+/**
+ * 필터, 서블릿 단계의 예외 포착
+ */
 public class FilterServletExceptionPublisher implements Filter {
 
     private final ApplicationEventPublisher publisher;
