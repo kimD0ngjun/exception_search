@@ -1,5 +1,6 @@
 package org.jun.publish;
 
+import org.jun.exception.AsyncExceptionInfo;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.ApplicationEventPublisher;
 
@@ -18,6 +19,8 @@ public class AsyncExceptionPublisher implements AsyncUncaughtExceptionHandler {
 
     @Override
     public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-        publisher.publishEvent(ex);
+        String threadName = Thread.currentThread().getName();
+        AsyncExceptionInfo info = new AsyncExceptionInfo(ex, threadName);
+        publisher.publishEvent(info);
     }
 }

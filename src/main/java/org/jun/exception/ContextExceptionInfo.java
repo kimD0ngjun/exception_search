@@ -8,6 +8,7 @@ public class ContextExceptionInfo {
 
     protected String type;
     protected String exceptionName;
+    protected String requestUri;
     protected String message;
     protected String timestamp;
     protected String originClass;
@@ -15,9 +16,10 @@ public class ContextExceptionInfo {
     protected String originModule;
     protected List<String> stackTrace;
 
-    public ContextExceptionInfo(String type, Throwable ex) {
+    public ContextExceptionInfo(String type, Throwable ex, String requestUri) {
         this.type = type;
         this.exceptionName = ex.getClass().getName();
+        this.requestUri = requestUri;
         this.message = ex.getMessage();
         this.timestamp = Instant.now().toString();
 

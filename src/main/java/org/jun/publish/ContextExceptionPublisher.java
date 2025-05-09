@@ -1,5 +1,8 @@
 package org.jun.publish;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.jun.exception.ContextExceptionInfo;
+import org.jun.exception.Type;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +21,8 @@ public class ContextExceptionPublisher {
 
     // 컨텍스트 범위 전역 예외 처리
     @ExceptionHandler(Exception.class)
-    public void handle(Exception e) {
-        System.err.println(e.getMessage());
+    public void handle(Exception e, HttpServletRequest request) {
+        ContextExceptionInfo info = new ContextExceptionInfo(Type.CONTEXT_EXCEPTION, e, request.getRequestURI());
+        publisher.publishEvent(info);
     }
 }

@@ -1,6 +1,8 @@
 package org.jun.publish;
 
 import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import org.jun.exception.FilterServletExceptionInfo;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.io.IOException;
@@ -24,6 +26,11 @@ public class FilterServletExceptionPublisher implements Filter {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
+            HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
+            String requestUri = httpRequest.getRequestURI();
+
+            FilterServletExceptionInfo info =
+                    new FilterServletExceptionInfo(e, requestUri, 200);
             publisher.publishEvent(e);
             throw e;
         }
