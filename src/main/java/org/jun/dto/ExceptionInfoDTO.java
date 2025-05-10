@@ -99,8 +99,9 @@ public class ExceptionInfoDTO {
         return originModule;
     }
 
-    public static ExceptionInfoRequest of(
-            String exceptionName, String requestUri, String message, String timestamp, String originClass, String originMethod, String originModule) {
-        return new ExceptionInfoRequest(exceptionName, requestUri, message, timestamp, originClass, originMethod, originModule);
+    public static ExceptionInfoRequest of(ExceptionInfoDTO dto) {
+        return new ExceptionInfoRequest(
+                dto.getExceptionName(), dto.getRequestUri(), dto.getMessage(),
+                dto.getTimestamp(), dto.getOriginClass(), dto.getOriginMethod(), dto.getOriginModule());
     }
 }
