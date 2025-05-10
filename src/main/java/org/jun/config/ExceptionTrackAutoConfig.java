@@ -1,7 +1,7 @@
 package org.jun.config;
 
 import org.jun.listener.ExceptionListener;
-import org.jun.publish.FilterServletExceptionPublisher;
+import org.jun.publish.PublishHandlerExceptionResolver;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +38,7 @@ public class ExceptionTrackAutoConfig implements AsyncConfigurer {
     }
 
     @Bean
-    public FilterServletExceptionPublisher filterServletExceptionInfo() {
-        return new FilterServletExceptionPublisher(applicationContext);
+    public PublishHandlerExceptionResolver publishHandlerExceptionResolver() {
+        return new PublishHandlerExceptionResolver(applicationContext);
     }
 }
