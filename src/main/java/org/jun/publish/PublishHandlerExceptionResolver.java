@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jun.dto.ExceptionInfoRequest;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,8 +32,12 @@ public class PublishHandlerExceptionResolver implements HandlerExceptionResolver
         String originMethod = "UnknownMethod";
         String originModule = "UnknownModule";
 
-        if (stack.length > 0) {
-            originClass = stack[0].getClassName();
+        if (handler instanceof HandlerMethod handlerMethod) {
+            originClass = handlerMethod.getBeanType().getSimpleName();
+            originMethod = handlerMethod.getMethod().getName();
+            originModule = handlerMethod.getBeanType().getPackageName();
+        } else if (stack.length > 0) {
+            originClass = getClassName(stack[0].getClassName());
             originMethod = stack[0].getMethodName();
             originModule = getRootPackage(stack[0].getClassName());
         }
@@ -56,8 +61,13 @@ public class PublishHandlerExceptionResolver implements HandlerExceptionResolver
         return null; // 다음 리졸버로 넘기기 위한 null 반환
     }
 
+    private String getClassName(String className) {
+        int lastDotIndex = className.lastIndexOf(".");
+        return lastDotIndex != -1 ? className.substring(lastDotIndex + 1) : className;
+    }
+
     private String getRootPackage(String className) {
         int lastDotIndex = className.lastIndexOf(".");
-        return lastDotIndex > 0 ? className.substring(0, lastDotIndex) : "default";
+        return lastDotIndex != -1 ? className.substring(0, lastDotIndex) : "UnknownPackage";
     }
 }
