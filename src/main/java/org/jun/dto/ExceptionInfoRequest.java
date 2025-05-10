@@ -93,4 +93,48 @@ public class ExceptionInfoRequest {
                 null
         );
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getExceptionName() {
+        return exceptionName;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getOriginClass() {
+        return originClass;
+    }
+
+    public String getOriginMethod() {
+        return originMethod;
+    }
+
+    public String getOriginModule() {
+        return originModule;
+    }
+
+    public List<String> getStackTrace() {
+        return stackTrace;
+    }
+
+    public String getThreadName() {
+        return threadName;
+    }
+
+    public String getRequestUri() {
+        return requestUri;
+    }
+
+    public Integer getHttpStatus() {
+        return httpStatus;
+    }
 }
