@@ -2,6 +2,7 @@ package org.jun.config;
 
 import org.jun.listener.ExceptionListener;
 import org.jun.publish.PublishHandlerExceptionResolver;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +12,17 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class ExceptionTrackAutoConfig implements AsyncConfigurer {
+@EnableConfigurationProperties(HttpRequestProperties.class)
+public class ExceptionSearchAutoConfig implements AsyncConfigurer {
 
     private final ApplicationContext applicationContext;
+    private final HttpRequestProperties requestProperties;
 
-    public ExceptionTrackAutoConfig(ApplicationContext applicationContext) {
+    public ExceptionSearchAutoConfig(
+            ApplicationContext applicationContext,
+            HttpRequestProperties requestProperties) {
         this.applicationContext = applicationContext;
+        this.requestProperties = requestProperties;
     }
 
     @Bean
