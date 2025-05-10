@@ -9,6 +9,9 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +27,12 @@ public class PublishHandlerExceptionResolver implements HandlerExceptionResolver
         String exceptionName = ex.getClass().getName();
         String requestUrl = request.getRequestURI();
         String message = ex.getMessage();
-        String timeStamp = Instant.now().toString();
+
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zonedNow = ZonedDateTime.now(zoneId);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss zzzz");
+        String timeStamp = zonedNow.format(formatter);
 
         StackTraceElement[] stack = ex.getStackTrace();
 
