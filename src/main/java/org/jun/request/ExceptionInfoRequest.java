@@ -20,4 +20,35 @@ public class ExceptionInfoRequest {
         this.originMethod = originMethod;
         this.originModule = originModule;
     }
+
+    public ExceptionInfoRequest() {
+    }
+
+    public String getExceptionName() {
+        return exceptionName;
+    }
+
+    public String getRequestUri() {
+        return requestUri;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getOriginClass() {
+        return originClass;
+    }
+
+    public String getOriginMethod() {
+        return originMethod;
+    }
+
+    public String getOriginModule() {
+        return originModule;
+    }
 }
