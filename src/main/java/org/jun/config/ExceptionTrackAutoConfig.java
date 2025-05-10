@@ -28,11 +28,6 @@ public class ExceptionTrackAutoConfig implements AsyncConfigurer {
     }
 
     @Bean
-    public CustomExceptionSearcher customExceptionSearcher() {
-        return new CustomExceptionSearcher();
-    }
-
-    @Bean
     public ExceptionListener exceptionListener() {
         return new ExceptionListener(webClient());
     }
