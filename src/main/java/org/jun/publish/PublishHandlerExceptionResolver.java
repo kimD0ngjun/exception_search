@@ -2,7 +2,7 @@ package org.jun.publish;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.jun.dto.ExceptionInfoRequest;
+import org.jun.dto.ExceptionInfoDTO;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 
 public class PublishHandlerExceptionResolver implements HandlerExceptionResolver {
     private final ApplicationEventPublisher eventPublisher;
@@ -49,11 +47,7 @@ public class PublishHandlerExceptionResolver implements HandlerExceptionResolver
             originModule = getRootPackage(stack[0].getClassName());
         }
 
-        List<String> stackTrace = Arrays.stream(stack)
-                .map(StackTraceElement::toString)
-                .toList();
-
-        ExceptionInfoRequest eventRequest = new ExceptionInfoRequest.Builder()
+        ExceptionInfoDTO eventRequest = new ExceptionInfoDTO.Builder()
                 .exceptionName(exceptionName)
                 .requestUri(requestUrl)
                 .message(message)
@@ -61,7 +55,6 @@ public class PublishHandlerExceptionResolver implements HandlerExceptionResolver
                 .originClass(originClass)
                 .originMethod(originMethod)
                 .originModule(originModule)
-                .stackTrace(stackTrace)
                 .build();
 
         eventPublisher.publishEvent(eventRequest);

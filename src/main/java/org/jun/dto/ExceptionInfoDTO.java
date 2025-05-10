@@ -1,8 +1,8 @@
 package org.jun.dto;
 
-import java.util.List;
+import org.jun.request.ExceptionInfoRequest;
 
-public class ExceptionInfoRequest {
+public class ExceptionInfoDTO {
 
     private final String exceptionName;
     private final String requestUri;
@@ -11,9 +11,8 @@ public class ExceptionInfoRequest {
     private final String originClass;
     private final String originMethod;
     private final String originModule;
-    private final List<String> stackTrace;
 
-    private ExceptionInfoRequest(Builder builder) {
+    private ExceptionInfoDTO(Builder builder) {
         this.exceptionName = builder.exceptionName;
         this.requestUri = builder.requestUri;
         this.message = builder.message;
@@ -21,7 +20,6 @@ public class ExceptionInfoRequest {
         this.originClass = builder.originClass;
         this.originMethod = builder.originMethod;
         this.originModule = builder.originModule;
-        this.stackTrace = builder.stackTrace;
     }
 
     public static class Builder {
@@ -32,7 +30,6 @@ public class ExceptionInfoRequest {
         private String originClass;
         private String originMethod;
         private String originModule;
-        private List<String> stackTrace;
 
         public Builder exceptionName(String exceptionName) {
             this.exceptionName = exceptionName;
@@ -69,13 +66,8 @@ public class ExceptionInfoRequest {
             return this;
         }
 
-        public Builder stackTrace(List<String> stackTrace) {
-            this.stackTrace = stackTrace;
-            return this;
-        }
-
-        public ExceptionInfoRequest build() {
-            return new ExceptionInfoRequest(this);
+        public ExceptionInfoDTO build() {
+            return new ExceptionInfoDTO(this);
         }
     }
 
@@ -107,7 +99,8 @@ public class ExceptionInfoRequest {
         return originModule;
     }
 
-    public List<String> getStackTrace() {
-        return stackTrace;
+    public static ExceptionInfoRequest of(
+            String exceptionName, String requestUri, String message, String timestamp, String originClass, String originMethod, String originModule) {
+        return new ExceptionInfoRequest(exceptionName, requestUri, message, timestamp, originClass, originMethod, originModule);
     }
 }
