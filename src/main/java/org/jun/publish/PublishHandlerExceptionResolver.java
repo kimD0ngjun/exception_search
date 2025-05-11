@@ -28,7 +28,7 @@ public class PublishHandlerExceptionResolver implements HandlerExceptionResolver
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedNow = ZonedDateTime.now(zoneId);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss zzzz");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String timeStamp = zonedNow.format(formatter);
 
         StackTraceElement[] stack = ex.getStackTrace();
